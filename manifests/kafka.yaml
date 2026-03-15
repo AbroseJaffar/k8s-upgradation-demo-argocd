@@ -5,7 +5,7 @@ metadata:
   namespace: kafka
 spec:
   kafka:
-    version: "4.1.0"   # <- supported version
+    version: "4.1.0"   # must be a supported version by your Strimzi operator
     nodePools:
       - name: kafka-pool-0
         replicas: 3
