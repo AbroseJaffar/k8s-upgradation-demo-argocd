@@ -3,31 +3,18 @@ kind: Kafka
 metadata:
   name: my-cluster
   namespace: kafka
+  annotations:
+    strimzi.io/node-pools: enabled
 spec:
   kafka:
-    version: "4.1.0"   # must be a supported version by your Strimzi operator
-    nodePools:
-      - name: kafka-pool-0
-        replicas: 3
-        template:
-          pod:
-            nodeSelector:
-              agentpool: kafka
-        storage:
-          type: ephemeral
+    version: "4.1.0"
+    # Metadata version is required for KRaft to manage its own internal quorum
+    metadataVersion: "4.1" 
     listeners:
       - name: plain
         port: 9092
         type: internal
         tls: false
-  zookeeper:
-    replicas: 3
-    template:
-      pod:
-        nodeSelector:
-          agentpool: kafka
-    storage:
-      type: ephemeral
   entityOperator:
     topicOperator: {}
     userOperator: {}
